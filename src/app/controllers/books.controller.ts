@@ -3,7 +3,7 @@ import { Book } from "../models/books.model";
 
 export const booksRoutes = express.Router();
 
-booksRoutes.post("/create-book", async (req: Request, res: Response) => {
+booksRoutes.post("/", async (req: Request, res: Response) => {
   const bookBody = req.body;
   const createdBook = await Book.create(bookBody);
   res.status(201).json({
@@ -35,7 +35,9 @@ booksRoutes.get("/:bookId", async (req: Request, res: Response) => {
 booksRoutes.patch("/:bookId", async (req: Request, res: Response) => {
   const bookId = req.params.bookId;
   const bookBody = req.body;
-  const updatedBook = await Book.findByIdAndUpdate(bookId, bookBody);
+  const updatedBook = await Book.findByIdAndUpdate(bookId, bookBody, {
+    new: true,
+  });
   res.status(201).json({
     success: true,
     message: "Book updated successfully",
@@ -49,6 +51,6 @@ booksRoutes.delete("/:bookId", async (req: Request, res: Response) => {
   res.status(201).json({
     success: true,
     message: "Book deleted successfully",
-    data: deletedBook,
+    data: null,
   });
 });
