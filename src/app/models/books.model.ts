@@ -5,28 +5,31 @@ const bookSchema = new Schema<IBook>(
   {
     title: {
       type: String,
-      required: true,
+      required: [true, "Title cannot be empty"],
     },
     author: {
       type: String,
-      required: true,
+      required: [true, "Author cannot be empty"],
     },
     genre: {
       type: String,
       required: true,
-      enum: [
-        "FICTION",
-        "NON_FICTION",
-        "SCIENCE",
-        "HISTORY",
-        "BIOGRAPHY",
-        "FANTASY",
-      ],
+      enum: {
+        values: [
+          "FICTION",
+          "NON_FICTION",
+          "SCIENCE",
+          "HISTORY",
+          "BIOGRAPHY",
+          "FANTASY",
+        ],
+        message: "Give a proper genre",
+      },
     },
     isbn: {
       type: String,
-      unique: true,
-      required: true,
+      unique: [true, "ISBN number must be a unique number"],
+      required: [true, "ISBN cannot be empty"],
     },
     description: {
       type: String,

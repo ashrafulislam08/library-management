@@ -5,11 +5,11 @@ const borrowSchema = new Schema<IBorrow>(
   {
     book: {
       type: String,
-      required: true,
+      required: [true, "Book must be a given."],
     },
     quantity: {
       type: Number,
-      required: true,
+      required: [true, "Quantity must be given"],
     },
     dueDate: {
       type: Date,
